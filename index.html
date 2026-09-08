@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIM AI Copilot Portal</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- SCROLL PROGRESS BAR -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- BACKGROUND GLOW BLOBS -->
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- LEFT SIDEBAR: QUICK NAV TABS -->
+<aside class="side-nav">
+    <a href="#problem" class="nav-link side-tab" data-tooltip="Problem">📋</a>
+    <a href="#solutions" class="nav-link side-tab" data-tooltip="AI Solutions">🤖</a>
+    <a href="#try-it" class="nav-link side-tab" data-tooltip="MIM Generator Live">🧪</a>
+    <a href="#live-assistant" class="nav-link side-tab" data-tooltip="Live MIM Assistant">🔴</a>
+    <a href="#impact-assessment" class="nav-link side-tab" data-tooltip="Impact Assessment">🎯</a>
+    <a href="#checklist" class="nav-link side-tab" data-tooltip="Checklist">✅</a>
+    <a href="#pir" class="nav-link side-tab" data-tooltip="PIR Checklist">📝</a>
+    <a href="#benefits" class="nav-link side-tab" data-tooltip="Benefits">📈</a>
+</aside>
+
+<!-- RIGHT SIDEBAR: LIVE STATUS WIDGET -->
+<aside class="side-status">
+    <div class="status-widget">
+        <p class="status-label">SYSTEM STATUS</p>
+        <p class="status-live"><span class="status-dot"></span> OPERATIONAL</p>
+    </div>
+    <div class="status-widget">
+        <p class="status-label">LOCAL DATE &amp; TIME</p>
+        <p class="status-date" id="liveDate">--</p>
+        <p class="status-clock" id="liveClock">--:--:-- --</p>
+    </div>
+    <div class="status-widget">
+        <p class="status-label">CHECKLIST PROGRESS</p>
+        <div class="status-progress-track">
+            <div class="status-progress-fill" id="checklistProgressFill"></div>
+        </div>
+        <p class="status-progress-text" id="checklistProgressText">0 / 7 Steps</p>
+    </div>
+    <div class="status-widget">
+        <p class="status-label">PIR CHECKLIST PROGRESS</p>
+        <div class="status-progress-track">
+            <div class="status-progress-fill" id="pirProgressFill"></div>
+        </div>
+        <p class="status-progress-text" id="pirProgressSideText">0 / 8 Steps</p>
+    </div>
+    <div class="status-widget">
+        <p class="status-label">NEXT UPDATE DUE</p>
+        <p class="status-clock timer-display" id="updateTimer">30:00</p>
+        <div class="timer-cadence">
+            <button class="cadence-btn active" data-mins="30" onclick="setCadence(30, this)">30m</button>
+            <button class="cadence-btn" data-mins="60" onclick="setCadence(60, this)">60m</button>
+        </div>
+        <div class="timer-controls">
+            <button class="timer-btn" id="timerStartBtn" onclick="toggleTimer()">▶ Start</button>
+            <button class="timer-btn" onclick="resetTimer()">↺ Reset</button>
+        </div>
+    </div>
+</aside>
+
+<!-- NAV -->
+<nav class="navbar">
+    <div class="logo">⚡ MIM AI Copilot</div>
+    <div class="nav-links">
+        <a href="#problem" class="nav-link">Problem</a>
+        <a href="#solutions" class="nav-link">AI Solutions</a>
+        <a href="#try-it" class="nav-link">MIM Generator</a>
+        <a href="#live-assistant" class="nav-link">Live Assistant</a>
+        <a href="#impact-assessment" class="nav-link">Impact Assessment</a>
+        <a href="#checklist" class="nav-link">Checklist</a>
+        <a href="#pir" class="nav-link">PIR</a>
+        <a href="#benefits" class="nav-link">Benefits</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>MIM AI Copilot Portal</h1>
+    <p id="heroSubtitle" class="typing-text"></p>
+    <span class="badge">⚡ Create With AI &mdash; AI Forum Challenge Entry</span>
+</section>
+
+<!-- PROBLEM -->
+<section class="section reveal" id="problem">
+    <h2>The Challenge Under Pressure</h2>
+    <p>During high-pressure major incidents, Major Incident Managers spend valuable time manually
+       writing executive summaries, business impact statements, and stakeholder updates &mdash;
+       all while simultaneously coordinating the bridge call, engaging resolver groups, and
+       tracking timelines. This portal shows how AI can take on the writing so the MIM can focus
+       on driving resolution.</p>
+</section>
+
+<!-- AI SOLUTIONS -->
+<section class="section reveal" id="solutions">
+    <h2>AI Solutions in Action (SAMPLES)</h2>
+
+    <div class="card">
+        <h3>💬 Executive Summary Generator</h3>
+        <p class="label">Raw Input:</p>
+        <div class="pre-wrap">
+            <pre>Global VPN outage, 500 users impacted, EMEA and APAC affected, network team investigating</pre>
+        </div>
+        <p class="label">AI-Generated Output:</p>
+        <div class="pre-wrap">
+            <ul class="output-bullets">
+                <li>Global VPN service disruption affecting approximately 500 users across EMEA and APAC</li>
+                <li>Technical teams are actively investigating the root cause</li>
+                <li>Business operations may experience intermittent connectivity delays</li>
+                <li>Next update to follow per standard communication cadence</li>
+            </ul>
+            <button class="copy-btn" onclick="copyText(this)">📋 Copy</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>📊 Business Impact Generator</h3>
+        <p class="label">Raw Input:</p>
+        <div class="pre-wrap">
+            <pre>SAP unavailable in Switzerland</pre>
+        </div>
+        <p class="label">AI-Generated Output:</p>
+        <div class="pre-wrap">
+            <ul class="output-bullets">
+                <li>Users are unable to perform order processing and supply chain transactions</li>
+                <li>Operational delays impacting the Switzerland manufacturing site</li>
+                <li>Business impact statement being validated with site leadership</li>
+            </ul>
+            <button class="copy-btn" onclick="copyText(this)">📋 Copy</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>📣 Stakeholder Update Generator</h3>
+        <p class="label">Raw Input:</p>
+        <div class="pre-wrap">
+            <pre>Server down, team working, ETA unknown</pre>
+        </div>
+        <p class="label">AI-Generated Output:</p>
+        <div class="pre-wrap">
+            <ul class="output-bullets">
+                <li>We are currently experiencing a service disruption</li>
+                <li>Our technical team is actively engaged and working toward resolution</li>
+                <li>Next update will be shared within 30 minutes</li>
+                <li>Thank you for your patience</li>
+            </ul>
+            <button class="copy-btn" onclick="copyText(this)">📋 Copy</button>
+        </div>
+    </div>
+</section>
+
+<!-- TRY IT LIVE / MIM GENERATOR -->
+<section class="section reveal" id="try-it">
+    <h2>🧪 MIM Generator Live</h2>
+    <p>Type in raw incident notes the way you'd jot them during a bridge call, pick a format, and watch it transform into a polished update. Every generation is saved automatically below so you can back-track to it later.</p>
+
+    <div class="card try-card">
+        <label class="label" for="ticketNumber">Ticket Number (optional):</label>
+        <input type="text" id="ticketNumber" placeholder="e.g. INC0012345">
+
+        <label class="label" for="templateType" style="margin-top:15px;">Choose Output Type:</label>
+        <select id="templateType">
+            <option value="summary">Executive Summary</option>
+            <option value="impact">Business Impact Statement</option>
+            <option value="stakeholder">Stakeholder Update</option>
+            <option value="shift">Shift Handover Message</option>
+        </select>
+
+        <label class="label" for="rawInput" style="margin-top:15px;">Your Raw Notes:</label>
+        <textarea id="rawInput" rows="3" placeholder="e.g. ERP down, plant in Allschwil affected, IT investigating, no ETA yet"></textarea>
+        <p class="hint" id="templateHint">Tip: describe what's down, who's affected, and current status &mdash; the generator adapts tone based on the output type selected.</p>
+
+        <button class="generate-btn" onclick="generateOutput()">⚡ Generate with AI</button>
+
+        <div id="outputBox" class="output-box hidden">
+            <p class="label">AI-Generated Output:</p>
+            <div class="pre-wrap">
+                <ul class="output-bullets" id="outputBullets"></ul>
+                <button class="copy-btn" onclick="copyText(this)">📋 Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card history-panel">
+        <div class="history-header">
+            <span>🕘 Ticket History <span class="hint" style="display:inline;">(saved automatically, kept on this device)</span></span>
+            <button class="history-clear-btn" onclick="clearAllHistory()">Clear All</button>
+        </div>
+        <ul class="history-list" id="historyList">
+            <li class="history-empty" id="historyEmpty">No saved generations yet &mdash; they'll appear here right after you click Generate.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- LIVE MIM ASSISTANT -->
+<section class="section reveal" id="live-assistant">
+    <h2>🔴 Live MIM Assistant <span class="live-tag">LIVE</span></h2>
+    <p>A smart assistant that blends standard MIM runbook process with broader IT incident management
+       knowledge &mdash; ask it a process question, a general ITSM concept, or something in between.
+       Runs entirely in your browser, so it's instantly available to anyone who opens this page.</p>
+
+    <div class="card">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-msg bot">
+                👋 Hi, I'm your MIM Assistant. I know the standard runbook plus general incident
+                management practice. Try asking me something, or tap a suggestion below.
+            </div>
+        </div>
+        <div class="chat-suggestions" id="chatSuggestions">
+            <button class="chip-btn" onclick="askSuggested('ServiceNow is down, what do I do?')">ServiceNow is down</button>
+            <button class="chip-btn" onclick="askSuggested('What is the difference between incident and problem management?')">Incident vs Problem</button>
+            <button class="chip-btn" onclick="askSuggested('How do I write a good business impact statement?')">Writing impact statements</button>
+            <button class="chip-btn" onclick="askSuggested('What is a blameless postmortem?')">Blameless postmortems</button>
+        </div>
+        <div class="chat-input-row">
+            <input type="text" id="chatInput" placeholder="Ask a MIM or ITSM question..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+            <button class="generate-btn chat-send-btn" onclick="sendChatMessage()">Ask</button>
+        </div>
+    </div>
+</section>
+
+<!-- IMPACT ASSESSMENT -->
+<section class="section reveal" id="impact-assessment">
+    <h2>🎯 Business Impact &amp; Urgency Assessment</h2>
+    <p>Not every incident has an obvious impact. Pick the area affected and get the right triage
+       questions to ask during the bridge call &mdash; adapted from standard MIM assessment practice.</p>
+
+    <div class="card">
+        <div class="category-grid" id="categoryGrid">
+            <button class="category-btn active" data-cat="general" onclick="showCategory('general', this)">🏢 General</button>
+            <button class="category-btn" data-cat="manufacturing" onclick="showCategory('manufacturing', this)">🏭 Manufacturing</button>
+            <button class="category-btn" data-cat="shipping" onclick="showCategory('shipping', this)">📦 Shipping</button>
+            <button class="category-btn" data-cat="customer" onclick="showCategory('customer', this)">🎧 Customer Service</button>
+            <button class="category-btn" data-cat="patient" onclick="showCategory('patient', this)">🏥 Patient Health</button>
+        </div>
+        <div class="question-box">
+            <ul id="questionList" class="question-list"></ul>
+        </div>
+    </div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="section reveal" id="checklist">
+    <h2>Incident Response Checklist</h2>
+    <p class="hint">Click an item to check it off &mdash; track your own bridge call in real time.</p>
+    <ul class="checklist" id="checklistItems">
+        <li>Identify impact and severity</li>
+        <li>Open bridge call</li>
+        <li>Notify stakeholders</li>
+        <li>Engage resolver groups</li>
+        <li>Issue updates every 30 minutes</li>
+        <li>Validate service restoration</li>
+        <li>Send closure communication</li>
+    </ul>
+</section>
+
+<!-- PIR CHECKLIST -->
+<section class="section reveal" id="pir">
+    <h2>📝 Post-Incident Report (PIR) Checklist</h2>
+    <p>Once the incident is resolved, a good PIR closes the loop for the business and prevents repeat
+       incidents. Work through these before you consider the MIM fully done.</p>
+    <ul class="checklist" id="pirItems">
+        <li>Confirm start and resolve times for the incident</li>
+        <li>Verify the correct Configuration Item (CI) for the issue</li>
+        <li>Provide resolution notes to the technical lead</li>
+        <li>Confirm the "Owning Group" and inform them of the RCA SLA (15 days for P1, 20 days for P2)</li>
+        <li>Obtain a final business impact statement from the business lead</li>
+        <li>Check the accuracy of Sub-Category and Category</li>
+        <li>Confirm impacted business groups with IT Service Delivery or other relevant parties</li>
+        <li>Are we aware of any changes which may have contributed to the outage or issue?</li>
+    </ul>
+    <p class="hint" id="pirProgressText">0 / 8 completed</p>
+</section>
+
+<!-- BENEFITS -->
+<section class="section reveal" id="benefits">
+    <h2>Benefits</h2>
+    <table>
+        <tr><th>Before AI</th><th>After AI</th></tr>
+        <tr><td>Manual writing</td><td>AI-assisted drafting</td></tr>
+        <tr><td>Inconsistent updates</td><td>Standardized communication</td></tr>
+        <tr><td>Slow executive summaries</td><td>Near-instant summaries</td></tr>
+        <tr><td>High stress during bridge calls</td><td>Guided, repeatable workflow</td></tr>
+    </table>
+</section>
+
+<footer>
+    <p>Created by Matt Pineda &mdash; Major Incident Manager | AI Forum Challenge Submission (Sept 11)</p>
+</footer>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})" title="Back to top">↑</button>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
